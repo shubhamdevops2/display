@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: frontend
-  serviceName: <ServiceName>
+  serviceName: display-service
   replicas: 2
   template:
     metadata:
@@ -14,14 +14,14 @@ spec:
         app: frondend
     spec:
       containers:
-      - name: myapp
-        image: k8s.gcr.io/nginx-slim:0.8
+      - name: display
+        image: public.ecr.aws/y3z0f7y7/display
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: web
         volumeMounts:
         - name: www
-          mountPath: /usr/share/nginx/html
+          mountPath: /app
   volumeClaimTemplates:
   - metadata:
       name: www
@@ -30,3 +30,17 @@ spec:
       resources:
         requests:
           storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: display-service
+spec:
+  selector:
+    app: frondend
+  ports:
+  - port: 8080
+    targetPort: 8080
+

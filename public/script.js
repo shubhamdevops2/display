@@ -4,7 +4,7 @@ function register() {
     event.preventDefault();
     $.ajax({
         type: "POST",
-        url: "http://localhost:8081/register",
+        url: "http://user-service:8081/register",
         data: JSON.stringify({ email: email, password: pw }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -23,7 +23,7 @@ function login() {
     event.preventDefault();
     $.ajax({
         type: "POST",
-        url: "http://localhost:8081/authenticate",
+        url: "http://user-service:8081/authenticate",
         data: JSON.stringify({ email: email, password: pw }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -89,7 +89,7 @@ function stopSpinner(position) {
     if (email) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8082/score",
+            url: "http://game-service:8082/score",
             data: JSON.stringify({ email: email, result: result }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -101,7 +101,7 @@ function stopSpinner(position) {
 function seeScores() {
     const email = localStorage.getItem("email");
     $.ajax({
-        url: `http://localhost:8082/score/${email}`,
+        url: `http://game-service:8082/score/${email}`,
         type: "GET",
         success: function (user) {
             $("#wins").text(user.wins);

@@ -4,7 +4,7 @@ function register() {
     event.preventDefault();
     $.ajax({
         type: "POST",
-        url: "http://user-service:8081/register",
+        url: "http://10.96.0.2:8081/register",
         data: JSON.stringify({ email: email, password: pw }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

@@ -1,20 +1,38 @@
-function register() {
+    
+async function register() {
     const email = $("#register-email").val();
     const pw = $("#register-pw").val();
     event.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "http://10.96.0.2:8081/register",
-        data: JSON.stringify({ email: email, password: pw }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(result){ 
-            setTimeout(() => {
-                $("#register-message").toggleClass("hide"); 
-            }, 3000);
-            $("#register-message").toggleClass("hide"); 
-        }
-    });
+
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://user-service:8081/register",true);
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    let data =JSON.stringify({ email: email, password: pw });
+
+xhr.send(data);
+    
+    // $.ajax({
+    //     type: "POST",
+    //     url: "http://localhost:8081/register",
+    //     data: JSON.stringify({ email: email, password: pw }),
+    //     contentType: "application/json; charset=utf-8",
+    //     dataType: "json",
+    //     success: function(result){ 
+    //         setTimeout(() => {
+    //             $("#register-message").toggleClass("hide"); 
+    //         }, 3000);
+    //         $("#register-message").toggleClass("hide"); 
+    //     }
+    // });
 }
 
 function login() {

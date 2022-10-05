@@ -1,38 +1,24 @@
     
-async function register() {
+ function register() {
     const email = $("#register-email").val();
     const pw = $("#register-pw").val();
     event.preventDefault();
 
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://user-service:8081/register",true);
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-        console.log(xhr.status);
-        console.log(xhr.responseText);
-    }};
-
-    let data =JSON.stringify({ email: email, password: pw });
-
-xhr.send(data);
     
-    // $.ajax({
-    //     type: "POST",
-    //     url: "http://localhost:8081/register",
-    //     data: JSON.stringify({ email: email, password: pw }),
-    //     contentType: "application/json; charset=utf-8",
-    //     dataType: "json",
-    //     success: function(result){ 
-    //         setTimeout(() => {
-    //             $("#register-message").toggleClass("hide"); 
-    //         }, 3000);
-    //         $("#register-message").toggleClass("hide"); 
-    //     }
-    // });
+    $.ajax({
+        type: "POST",
+        url: "http://192.168.0.179:32572/register",
+        data: JSON.stringify({ email: email, password: pw }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(result){ 
+            setTimeout(() => {
+                $("#register-message").toggleClass("hide"); 
+            }, 3000);
+            $("#register-message").toggleClass("hide"); 
+        }
+    });
 }
 
 function login() {
@@ -41,7 +27,7 @@ function login() {
     event.preventDefault();
     $.ajax({
         type: "POST",
-        url: "http://user-service:8081/authenticate",
+        url: "http://192.168.0.179:32572/authenticate",
         data: JSON.stringify({ email: email, password: pw }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -107,7 +93,7 @@ function stopSpinner(position) {
     if (email) {
         $.ajax({
             type: "POST",
-            url: "http://game-service:8082/score",
+            url: "http://192.168.0.179:32255/score",
             data: JSON.stringify({ email: email, result: result }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -119,7 +105,7 @@ function stopSpinner(position) {
 function seeScores() {
     const email = localStorage.getItem("email");
     $.ajax({
-        url: `http://game-service:8082/score/${email}`,
+        url: `http://192.168.0.179:32255/score/${email}`,
         type: "GET",
         success: function (user) {
             $("#wins").text(user.wins);

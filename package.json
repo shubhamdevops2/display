@@ -1,6 +1,6 @@
 {
   "name": "display",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "You will need MongoDB installed on your computer, start the service, create a database, and create a user to interact with that database.  Don't worry if you do not understand all the commands; this tutorial is not a MongoDB tutorial!",
   "main": "index.js",
   "scripts": {
